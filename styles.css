@@ -44,13 +44,13 @@ a:hover {
     left: 0;
     width: 100%;
     z-index: 10;
-    height: 30px;
+    height: 40px;
 }
 
 .nav a {
     color: whitesmoke;
-    margin: 0%;
-    padding: 0%;
+    
+    font-size: larger;
 }
 
 .nav-list {
