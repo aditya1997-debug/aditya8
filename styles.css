@@ -7,24 +7,30 @@ body {
     padding: 20px;
     line-height: 1.6;
 }
+
 h3 {
     padding-bottom: 10px;
 }
+
 ul {
     list-style-type: none;
     padding-left: 20px;
 }
+
 li {
     margin-bottom: 5px;
-    list-style-type: circle; 
+    list-style-type: circle;
 }
+
 a {
     color: #0077cc;
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: underline;
 }
+
 .left {
     font-weight: bold;
 }
@@ -41,7 +47,7 @@ a:hover {
     height: 30px;
 }
 
-.nav a{
+.nav a {
     color: whitesmoke;
     margin: 0%;
     padding: 0%;
@@ -65,5 +71,53 @@ footer {
     height: 25px;
 }
 
+/* @media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .nav {
+        height: 40px;
+    }
+    .nav-list {
+        flex-direction: column;
+        margin-right: 0;
+    }
+    .nav a {
+        padding: 10px 0;
+    }
+    .d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .d-flex img {
+        width: 100px;
+        height: auto;
+    }
+    .responsive {
+        font-size: 1.5rem;
+    }
+    .left h6, .right a {
+        font-size: 0.9rem;
+    }
+    .right ul {
+        padding-left: 10px;
+    }
+}
 
-
+@media (max-width: 480px) {
+    .nav-list {
+        gap: 0.5rem;
+    }
+    .nav a {
+        font-size: 0.8rem;
+    }
+    .responsive {
+        font-size: 1.2rem;
+    }
+    .left h6, .right a {
+        font-size: 0.8rem;
+    }
+    .right ul {
+        padding-left: 5px;
+    }
+} */
