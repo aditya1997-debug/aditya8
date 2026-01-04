@@ -16,7 +16,11 @@
 
 <header class="main-header">
     <nav class="container">
-        <ul class="nav-links">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+            <span class="hamburger"></span>
+        </button>
+
+        <ul class="nav-links" id="nav-links">
             <li><a href="https://drive.google.com/file/d/1-kfu0jMsDPcs9kaLpFLFbWxcvA9DEavE/view" target="_blank" class="nav-item">Resume</a></li>
             <li><a href="mailto:adityadalvi157@gmail.com" class="nav-item">Email</a></li>
             <li><a href="https://github.com/aditya1997-debug" target="_blank" class="nav-item">GitHub</a></li>
@@ -65,9 +69,6 @@
                     <ul class="bullet-list">
                         <li>Led backend development for teacher-centric learning platforms aligned with <strong>NEP 2020</strong>.</li>
                         <li>Designed scalable REST APIs using <strong>Node.js, Express, MongoDB</strong>.</li>
-                        <!-- <li>Integrated <strong>Redis caching</strong>, reducing API response times by <strong>65%</strong>.</li>
-                        <li>Created an automated CRUD API generator reducing backend development time by <strong>99%</strong>.</li>
-                        <li>Authored comprehensive Swagger (JSDoc-style) API documentation.</li> -->
                     </ul>
                 </div>
             </div>
@@ -77,11 +78,8 @@
                 <div class="col-lg-9 col-md-8 info-content">
                     <h3>Associate Software Engineer – Augmented Transformations</h3>
                     <ul class="bullet-list">
-                        <li>
-  Built real-time analytics dashboards using <strong>Python, Django, and JavaScript</strong>, used by <strong>100+ enterprise clients</strong>.
-</li>
+                        <li>Built real-time analytics dashboards using <strong>Python, Django, and JavaScript</strong>, used by <strong>100+ enterprise clients</strong>.</li>
                         <li>Optimized backend APIs and database queries, achieving a <strong>90% improvement</strong> in response time.</li>
-                        <!-- <li>Performed data cleaning and transformation using SQL to improve reporting accuracy.</li> -->
                     </ul>
                 </div>
             </div>
@@ -107,7 +105,7 @@
                     <h4>MyTri</h4>
                     <span class="badge">Teacher Companion</span>
                 </div>
-                <p>Backend systems for lesson planning, worksheets, question banks, and role-based access control.</p>
+                <p>A Teacher’s Companion App</p>
                 <a href="https://mytrilearn.com/" target="_blank" class="btn-link">Product Website →</a>
             </div>
 
@@ -116,7 +114,7 @@
                     <h4>Holistic Progress Card</h4>
                     <span class="badge">Student Tracking</span>
                 </div>
-                <p>A Holistic Progress Card is a comprehensive student evaluation record that goes beyond marks and exams to show a learner’s overall development.</p>
+                <p>A Holistic Progress Card (HPC) is a comprehensive student assessment report that goes beyond marks and exams.</p>
                 <a href="https://myelin.co.in/holistic-progress-card/" target="_blank" class="btn-link">Product Page →</a>
             </div>
 
@@ -125,7 +123,7 @@
                     <h4>Myelin Platform</h4>
                     <span class="badge">School Management</span>
                 </div>
-                <p>myelin is a comprehensive 360° solution connecting schools, teachers and parents to build a thriving educational community. It provides intelligent insights, automates routine tasks and personalizes learning experiences for students.</p>
+                <p>Myelin is a comprehensive 360° solution connecting schools, teachers and parents.</p>
                 <a href="https://myelin.co.in/" target="_blank" class="btn-link">Product Website →</a>
             </div>
 
@@ -134,7 +132,7 @@
                     <h4>VAS</h4>
                     <span class="badge">Enterprise Tool</span>
                 </div>
-                <p><strong>Video Analytics Solution</strong> is designed to leverage the power of artificial intelligence and computer vision to deliver real-time insights and actionable data</p>
+                <p>Video Analytics Solution is designed to leverage the power of artificial intelligence and computer vision to deliver real-time insights and actionable data</p>
                 <a href="https://augtrans.com/" target="_blank" class="btn-link">Company Website →</a>
             </div>
         </div>
@@ -160,5 +158,41 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        // Toggle functionality
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Stop click from bubbling to document
+            const isActive = navLinks.classList.toggle('is-active');
+            menuToggle.classList.toggle('is-active');
+            
+            // Accessibility state
+            menuToggle.setAttribute('aria-expanded', isActive);
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('is-active');
+                menuToggle.classList.remove('is-active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close menu if clicking outside of the navbar
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('is-active');
+                menuToggle.classList.remove('is-active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
