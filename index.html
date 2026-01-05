@@ -7,25 +7,254 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* --- DESIGN TOKENS --- */
+        :root {
+            --bg-canvas: #FAF9F6;      /* Luxurious Off-white */
+            --text-main: #1A1A1A;      /* Soft Obsidian */
+            --text-muted: #6B6B6B;     /* Warm Grey */
+            --accent: #B5935A;         /* Muted Champagne Gold */
+            --border-thin: #EAE8E2;
+            --glass-bg: rgba(250, 249, 246, 0.85);
+            --transition-luxe: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --container-width: 1000px;
+        }
+
+        /* --- BASE RESET --- */
+        body {
+            /* Trebuchet MS applied everywhere */
+            font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            line-height: 1.7;
+            margin: 0;
+            padding-top: 100px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: var(--container-width);
+        }
+
+        /* EXCEPT THE NAME: Use Playfair for the brand signature */
+        .name { 
+            font-family: 'Playfair Display', serif; 
+            font-weight: 700;
+            font-size: clamp(2.5rem, 6vw, 4.2rem); 
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        h2, h3, h4 {
+            font-weight: bold;
+            letter-spacing: -0.01em;
+        }
+
+        /* --- NAVIGATION --- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-thin);
+            padding: 1.2rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            transition: var(--transition-luxe);
+        }
+
+        .nav-item:hover { color: var(--accent); }
+
+        /* --- HERO SECTION --- */
+        .hero-section { padding: 7rem 0; }
+        
+        .hero-content { 
+            display: flex; 
+            align-items: center; 
+            gap: 4rem; 
+        }
+
+        .profile-img { 
+            border-radius: 4px;
+            object-fit: cover; 
+            border: 1px solid var(--border-thin);
+            padding: 10px;
+            background: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.02);
+            transition: var(--transition-luxe);
+        }
+
+        .tagline { 
+            font-size: 1.15rem; 
+            color: var(--text-muted); 
+            margin-top: 0.8rem;
+        }
+
+        .skills-highlight { 
+            color: var(--accent); 
+            font-weight: bold;
+        }
+
+        /* --- CONTENT SECTIONS --- */
+        .content-section { 
+            margin-bottom: 9rem; 
+            opacity: 0; 
+            transform: translateY(40px); 
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        
+        .content-section.visible { opacity: 1; transform: translateY(0); }
+
+        .section-title { 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.35em; 
+            color: var(--accent);
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: var(--border-thin);
+            margin-left: 2rem;
+        }
+
+        .about-card p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 850px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- EXPERIENCE --- */
+        .experience-item { 
+            margin-bottom: 5rem; 
+            border-left: 1px solid var(--border-thin); 
+            padding-left: 3rem; 
+            position: relative;
+        }
+
+        .date-label { 
+            font-size: 0.85rem;
+            font-weight: bold; 
+            color: var(--accent); 
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .info-content h3 { font-size: 1.6rem; margin-bottom: 1.2rem; color: var(--text-main); }
+        .bullet-list { list-style: none; padding: 0; }
+        .bullet-list li { margin-bottom: 1rem; position: relative; padding-left: 1.8rem; color: var(--text-muted); font-size: 1.1rem; }
+        .bullet-list li::before { content: "›"; position: absolute; left: 0; color: var(--accent); font-size: 1.4rem; line-height: 1; }
+
+        /* --- PROJECTS --- */
+        .projects-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 2.5rem; 
+        }
+
+        .project-card { 
+            background: white; 
+            padding: 3.5rem 2.5rem; 
+            border: 1px solid var(--border-thin); 
+            transition: var(--transition-luxe);
+            position: relative;
+        }
+
+        .project-card:hover { 
+            transform: translateY(-12px); 
+            box-shadow: 0 40px 90px rgba(0,0,0,0.04);
+            border-color: var(--accent);
+        }
+
+        .badge { 
+            background: transparent; 
+            color: var(--accent); 
+            border: 1px solid var(--accent); 
+            font-size: 0.65rem; 
+            padding: 0.4em 1em;
+            font-weight: bold;
+            border-radius: 0;
+        }
+
+        .btn-link { 
+            text-decoration: none; 
+            color: var(--text-main); 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.15em; 
+            font-weight: bold;
+            margin-top: 2.5rem;
+            display: inline-block;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 3px;
+        }
+
+        /* --- EDUCATION --- */
+        .edu-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 2.2rem 0; 
+            border-bottom: 1px solid var(--border-thin);
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-luxe);
+        }
+
+        .edu-item:hover { padding-left: 1rem; background: rgba(181, 147, 90, 0.02); }
+        .edu-text { font-size: 1.15rem; font-weight: bold; }
+        .edu-source { font-size: 0.85rem; color: var(--accent); font-weight: bold; }
+
+        /* --- FOOTER --- */
+        .main-footer { padding: 6rem 0; border-top: 1px solid var(--border-thin); text-align: center; }
+        .copyright { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-content { flex-direction: column; text-align: center; }
+            .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+            .section-title::after { display: none; }
+        }
+    </style>
 </head>
 
 <body>
 
 <header class="main-header">
     <nav class="container">
-        <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
-            <span class="hamburger"></span>
-        </button>
-
-        <ul class="nav-links" id="nav-links">
+        <ul class="nav-links">
             <li><a href="https://drive.google.com/file/d/1-kfu0jMsDPcs9kaLpFLFbWxcvA9DEavE/view" target="_blank" class="nav-item">Resume</a></li>
             <li><a href="mailto:adityadalvi157@gmail.com" class="nav-item">Email</a></li>
             <li><a href="https://github.com/aditya1997-debug" target="_blank" class="nav-item">GitHub</a></li>
             <li><a href="https://www.linkedin.com/in/aditya-dalvi-bkd1/" target="_blank" class="nav-item">LinkedIn</a></li>
-            <li><a href="tel:+91888596705" class="nav-item">Phone</a></li>
+            <li><a href="tel:+91888596705" class="nav-item">Contact</a></li>
         </ul>
     </nav>
 </header>
@@ -34,63 +263,59 @@
     <section class="hero-section">
         <div class="hero-content">
             <div class="hero-image-wrapper">
-                <img src="chilling.png" alt="Aditya Dalvi" class="profile-img" width="140" height="140">
+                <img src="chilling.png" alt="Aditya Dalvi" class="profile-img" width="180" height="180">
             </div>
             <div class="hero-text">
                 <h1 class="name">Aditya S. Dalvi</h1>
-                <p class="tagline">Backend Software Engineer <span class="separator">|</span> <span class="skills-highlight">Node.js & Python</span></p>
+                <p class="tagline">Backend Software Engineer <span class="skills-highlight">/ Node.js & Python Expert</span></p>
             </div>
         </div>
     </section>
 
     <section class="content-section">
-        <h2 class="section-title">Namaste! 🙏</h2>
+        <h2 class="section-title">Introduction</h2>
         <div class="about-card">
             <p>
-                I’m <strong>Aditya Sandeep Dalvi</strong>, a Backend Software Engineer based in Pune, India, with
-                <strong>2+ years of experience</strong> building scalable backend systems, REST APIs, and
-                data-driven platforms for education and enterprise products.
+                I am a <strong>Backend Engineer</strong> based in Pune, India, with over two years of experience crafting high-performance systems and scalable REST APIs for the education and enterprise sectors.
             </p>
             <p>
-                I specialize in <strong>Node.js, Python, MongoDB, PostgreSQL</strong>, and backend architecture,
-                with a strong focus on performance optimization, clean API design, and real-world usability.
+                My craft is centered around <strong>Node.js, Python, and MongoDB</strong>, with an obsessive focus on clean API design, database optimization, and architectural integrity.
             </p>
         </div>
     </section>
 
     <section class="content-section">
-        <h2 class="section-title" id="work-experience">Work Experience</h2>
-        
+        <h2 class="section-title">Professional Experience</h2>
         <div class="timeline">
-            <div class="experience-item row">
-                <div class="col-lg-3 col-md-4 date-label">Dec 2024 – Present</div>
-                <div class="col-lg-9 col-md-8 info-content">
-                    <h3>Backend Developer – Myelin</h3>
+            <div class="experience-item">
+                <span class="date-label">Dec 2024 – Present</span>
+                <div class="info-content">
+                    <h3>Backend Developer — Myelin</h3>
                     <ul class="bullet-list">
-                        <li>Led backend development for teacher-centric learning platforms aligned with <strong>NEP 2020</strong>.</li>
-                        <li>Designed scalable REST APIs using <strong>Node.js, Express, MongoDB</strong>.</li>
+                        <li>Architecting teacher-centric learning ecosystems compliant with NEP 2020.</li>
+                        <li>Developing high-throughput REST APIs utilizing Node.js and MongoDB.</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="experience-item row">
-                <div class="col-lg-3 col-md-4 date-label">Jan 2024 – Jun 2024</div>
-                <div class="col-lg-9 col-md-8 info-content">
-                    <h3>Associate Software Engineer – Augmented Transformations</h3>
+            <div class="experience-item">
+                <span class="date-label">Jan 2024 – Jun 2024</span>
+                <div class="info-content">
+                    <h3>Associate Software Engineer — Augmented Transformations</h3>
                     <ul class="bullet-list">
-                        <li>Built real-time analytics dashboards using <strong>Python, Django, and JavaScript</strong>, used by <strong>100+ enterprise clients</strong>.</li>
-                        <li>Optimized backend APIs and database queries, achieving a <strong>90% improvement</strong> in response time.</li>
+                        <li>Engineered real-time analytics for 100+ enterprise clients via Django.</li>
+                        <li>Achieved a 90% latency reduction through rigorous query optimization.</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="experience-item row">
-                <div class="col-lg-3 col-md-4 date-label">Feb 2023 – Oct 2023</div>
-                <div class="col-lg-9 col-md-8 info-content">
-                    <h3>Backend Developer – Myelin</h3>
+            <div class="experience-item">
+                <span class="date-label">Feb 2023 – Oct 2023</span>
+                <div class="info-content">
+                    <h3>Backend Developer — Myelin</h3>
                     <ul class="bullet-list">
-                        <li>Built backend services for an online exam platform handling <strong>1,000+ exams</strong> and <strong>5,000+ evaluations/month</strong>.</li>
-                        <li>Improved processing efficiency by <strong>75%</strong> and reduced manual errors by <strong>40%</strong>.</li>
+                        <li>Built examination engines handling 5,000+ monthly evaluations.</li>
+                        <li>Enhanced automated processing efficiency by 75%.</li>
                     </ul>
                 </div>
             </div>
@@ -101,46 +326,42 @@
         <h2 class="section-title">Industry Projects</h2>
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-header">
-                    <h4>MyTri</h4>
-                    <span class="badge">Teacher Companion</span>
-                </div>
-                <p>A Teacher’s Companion App</p>
-                <a href="https://mytrilearn.com/" target="_blank" class="btn-link">Product Website →</a>
+                <span class="badge">EdTech</span>
+                <h4 class="mt-4">MyTri</h4>
+                <p class="text-muted small">An intelligent companion app for the modern educator.</p>
+                <a href="https://mytrilearn.com/" target="_blank" class="btn-link">View Project →</a>
             </div>
 
             <div class="project-card">
-                <div class="project-header">
-                    <h4>Holistic Progress Card</h4>
-                    <span class="badge">Student Tracking</span>
-                </div>
-                <p>A Holistic Progress Card (HPC) is a comprehensive student assessment report that goes beyond marks and exams.</p>
-                <a href="https://myelin.co.in/holistic-progress-card/" target="_blank" class="btn-link">Product Page →</a>
+                <span class="badge">Analytics</span>
+                <h4 class="mt-4">Holistic Progress Card</h4>
+                <p class="text-muted small">Comprehensive student assessment beyond traditional metrics.</p>
+                <a href="https://myelin.co.in/holistic-progress-card/" target="_blank" class="btn-link">View Project →</a>
             </div>
 
             <div class="project-card">
-                <div class="project-header">
-                    <h4>Myelin Platform</h4>
-                    <span class="badge">School Management</span>
-                </div>
-                <p>Myelin is a comprehensive 360° solution connecting schools, teachers and parents.</p>
-                <a href="https://myelin.co.in/" target="_blank" class="btn-link">Product Website →</a>
+                <span class="badge">ERP</span>
+                <h4 class="mt-4">Myelin Platform</h4>
+                <p class="text-muted small">360° school management solution connecting stakeholders.</p>
+                <a href="https://myelin.co.in/" target="_blank" class="btn-link">View Project →</a>
             </div>
 
             <div class="project-card">
-                <div class="project-header">
-                    <h4>VAS</h4>
-                    <span class="badge">Enterprise Tool</span>
-                </div>
-                <p>Video Analytics Solution is designed to leverage the power of artificial intelligence and computer vision to deliver real-time insights and actionable data</p>
-                <a href="https://augtrans.com/products/1" target="_blank" class="btn-link">Company Website →</a>
+                <span class="badge">Computer Vision</span>
+                <h4 class="mt-4">VAS</h4>
+                <p class="text-muted small">AI-powered video analytics for actionable enterprise insights.</p>
+                <a href="https://augtrans.com/products/1" target="_blank" class="btn-link">View Project →</a>
             </div>
         </div>
     </section>
 
-    <section class="content-section mb-5">
-        <h2 class="section-title">Certifications</h2>
+    <section class="content-section">
+        <h2 class="section-title">Education & Certifications</h2>
         <div class="education-list">
+            <div class="edu-item">
+                <div class="edu-text">B.E Mechanical Engineering</div>
+                <span class="edu-source">Savitribai Phule Pune University</span>
+            </div>
             <a href="https://certificates.cs50.io/79979aad-97b2-44ad-864b-d3805bd67788.pdf?size=letter" target="_blank" class="edu-item">
                 <div class="edu-text">CS50 Web Programming with Python and JavaScript</div>
                 <span class="edu-source">Harvard Extension</span>
@@ -149,9 +370,9 @@
                 <div class="edu-text">Introduction to Programming with Python</div>
                 <span class="edu-source">University of Helsinki</span>
             </a>
-            <div class="edu-item no-link">
+            <div class="edu-item">
                 <div class="edu-text">CS50 Introduction to Computer Science</div>
-                <span class="edu-source">Harvard</span>
+                <span class="edu-source">Harvard Extension</span>
             </div>
         </div>
     </section>
@@ -159,46 +380,23 @@
 
 <footer class="main-footer">
     <div class="container">
-        <div class="footer-content">
-            <p class="copyright">&copy; 2024 Aditya S. Dalvi. All rights reserved.</p>
-        </div>
+        <p class="copyright">&copy; 2024 Aditya S. Dalvi. Engineered for Scalability.</p>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const menuToggle = document.getElementById('menu-toggle');
-        const navLinks = document.getElementById('nav-links');
-
-        // Toggle functionality
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); // Stop click from bubbling to document
-            const isActive = navLinks.classList.toggle('is-active');
-            menuToggle.classList.toggle('is-active');
-            
-            // Accessibility state
-            menuToggle.setAttribute('aria-expanded', isActive);
-        });
-
-        // Close menu when clicking a link
-        document.querySelectorAll('.nav-item').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('is-active');
-                menuToggle.classList.remove('is-active');
-                menuToggle.setAttribute('aria-expanded', 'false');
+        // --- INTERSECTION OBSERVER FOR LUXURY REVEAL ---
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
-        });
+        }, observerOptions);
 
-        // Close menu if clicking outside of the navbar
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-                navLinks.classList.remove('is-active');
-                menuToggle.classList.remove('is-active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
+        document.querySelectorAll('.content-section').forEach(el => observer.observe(el));
     });
 </script>
 
