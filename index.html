@@ -13,10 +13,10 @@
     <style>
         /* --- DESIGN TOKENS --- */
         :root {
-            --bg-canvas: #FAF9F6;      /* Luxurious Off-white */
-            --text-main: #1A1A1A;      /* Soft Obsidian */
-            --text-muted: #6B6B6B;     /* Warm Grey */
-            --accent: #B5935A;         /* Muted Champagne Gold */
+            --bg-canvas: #FAF9F6;
+            --text-main: #1A1A1A;
+            --text-muted: #6B6B6B;
+            --accent: #B5935A;
             --border-thin: #EAE8E2;
             --glass-bg: rgba(250, 249, 246, 0.85);
             --transition-luxe: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -25,7 +25,6 @@
 
         /* --- BASE RESET --- */
         body {
-            /* Trebuchet MS applied everywhere */
             font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
             background-color: var(--bg-canvas);
             color: var(--text-main);
@@ -35,11 +34,8 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: var(--container-width);
-        }
+        .container { max-width: var(--container-width); }
 
-        /* EXCEPT THE NAME: Use Playfair for the brand signature */
         .name { 
             font-family: 'Playfair Display', serif; 
             font-weight: 700;
@@ -48,10 +44,7 @@
             letter-spacing: -0.02em;
         }
 
-        h2, h3, h4 {
-            font-weight: bold;
-            letter-spacing: -0.01em;
-        }
+        h2, h3, h4 { font-weight: bold; letter-spacing: -0.01em; }
 
         /* --- NAVIGATION --- */
         .main-header {
@@ -88,12 +81,7 @@
 
         /* --- HERO SECTION --- */
         .hero-section { padding: 7rem 0; }
-        
-        .hero-content { 
-            display: flex; 
-            align-items: center; 
-            gap: 4rem; 
-        }
+        .hero-content { display: flex; align-items: center; gap: 4rem; }
 
         .profile-img { 
             border-radius: 4px;
@@ -102,7 +90,6 @@
             padding: 10px;
             background: #fff;
             box-shadow: 0 20px 50px rgba(0,0,0,0.02);
-            transition: var(--transition-luxe);
         }
 
         .tagline { 
@@ -111,9 +98,17 @@
             margin-top: 0.8rem;
         }
 
-        .skills-highlight { 
-            color: var(--accent); 
-            font-weight: bold;
+        /* SKILLS ANIMATION */
+        .skills-highlight { color: var(--accent); font-weight: bold; }
+        
+        #skill-text {
+            display: inline-block;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .skill-fade {
+            opacity: 0;
+            transform: translateY(3px);
         }
 
         /* --- CONTENT SECTIONS --- */
@@ -144,12 +139,7 @@
             margin-left: 2rem;
         }
 
-        .about-card p {
-            font-size: 1.3rem;
-            color: var(--text-muted);
-            max-width: 850px;
-            margin-bottom: 1.5rem;
-        }
+        .about-card p { font-size: 1.3rem; color: var(--text-muted); max-width: 850px; margin-bottom: 1.5rem; }
 
         /* --- EXPERIENCE --- */
         .experience-item { 
@@ -184,7 +174,6 @@
             padding: 3.5rem 2.5rem; 
             border: 1px solid var(--border-thin); 
             transition: var(--transition-luxe);
-            position: relative;
         }
 
         .project-card:hover { 
@@ -225,10 +214,9 @@
             border-bottom: 1px solid var(--border-thin);
             text-decoration: none;
             color: inherit;
-            transition: var(--transition-luxe);
         }
 
-        .edu-item:hover { padding-left: 1rem; background: rgba(181, 147, 90, 0.02); }
+        .edu-item:hover { padding-left: 1rem; background: rgba(181, 147, 90, 0.02); transition: var(--transition-luxe); }
         .edu-text { font-size: 1.15rem; font-weight: bold; }
         .edu-source { font-size: 0.85rem; color: var(--accent); font-weight: bold; }
 
@@ -236,7 +224,6 @@
         .main-footer { padding: 6rem 0; border-top: 1px solid var(--border-thin); text-align: center; }
         .copyright { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero-content { flex-direction: column; text-align: center; }
             .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
@@ -267,7 +254,10 @@
             </div>
             <div class="hero-text">
                 <h1 class="name">Aditya S. Dalvi</h1>
-                <p class="tagline">Backend Software Engineer <span class="skills-highlight">/ Node.js & Python Expert</span></p>
+                <p class="tagline">
+                    Backend Software Engineer 
+                    <span class="skills-highlight">/ <span id="skill-text">Node.js</span></span>
+                </p>
             </div>
         </div>
     </section>
@@ -275,12 +265,8 @@
     <section class="content-section">
         <h2 class="section-title">Introduction</h2>
         <div class="about-card">
-            <p>
-                I am a <strong>Backend Engineer</strong> based in Pune, India, with over two years of experience crafting high-performance systems and scalable REST APIs for the education and enterprise sectors.
-            </p>
-            <p>
-                My craft is centered around <strong>Node.js, Python, and MongoDB</strong>, with an obsessive focus on clean API design, database optimization, and architectural integrity.
-            </p>
+            <p>I am a <strong>Backend Engineer</strong> based in Pune, India, with over two years of experience crafting high-performance systems and scalable REST APIs for the education and enterprise sectors.</p>
+            <p>My craft is centered around <strong>Node.js, Python, and MongoDB</strong>, with an obsessive focus on clean API design, database optimization, and architectural integrity.</p>
         </div>
     </section>
 
@@ -303,7 +289,7 @@
                 <div class="info-content">
                     <h3>Associate Software Engineer — Augmented Transformations</h3>
                     <ul class="bullet-list">
-                        <li>Engineered real-time analytics for 100+ enterprise clients via Django.</li>
+                        <li>Engineered a real time analytics dashboard used by over 100 clients via Python, Django, ChartJs, and JavaScript.</li>
                         <li>Achieved a 90% latency reduction through rigorous query optimization.</li>
                     </ul>
                 </div>
@@ -331,21 +317,18 @@
                 <p class="text-muted small">An intelligent companion app for the modern educator.</p>
                 <a href="https://mytrilearn.com/" target="_blank" class="btn-link">View Project →</a>
             </div>
-
             <div class="project-card">
                 <span class="badge">Analytics</span>
                 <h4 class="mt-4">Holistic Progress Card</h4>
                 <p class="text-muted small">Comprehensive student assessment beyond traditional metrics.</p>
                 <a href="https://myelin.co.in/holistic-progress-card/" target="_blank" class="btn-link">View Project →</a>
             </div>
-
             <div class="project-card">
                 <span class="badge">ERP</span>
                 <h4 class="mt-4">Myelin Platform</h4>
                 <p class="text-muted small">360° school management solution connecting stakeholders.</p>
                 <a href="https://myelin.co.in/" target="_blank" class="btn-link">View Project →</a>
             </div>
-
             <div class="project-card">
                 <span class="badge">Computer Vision</span>
                 <h4 class="mt-4">VAS</h4>
@@ -380,23 +363,44 @@
 
 <footer class="main-footer">
     <div class="container">
-        <p class="copyright">&copy; 2024 Aditya S. Dalvi. Engineered for Scalability.</p>
+        <p class="copyright">&copy; 2025 Aditya S. Dalvi. Engineered for Scalability.</p>
     </div>
 </footer>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- INTERSECTION OBSERVER FOR LUXURY REVEAL ---
+        // --- INTERSECTION OBSERVER ---
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, observerOptions);
-
         document.querySelectorAll('.content-section').forEach(el => observer.observe(el));
+
+        // --- SKILL ANIMATION (Slash remains static) ---
+        const skills = [
+            "Node.js",
+            "Python",
+            "MongoDB",
+            "Django",
+            "Flask",
+            "Express",
+        ];
+        
+        let currentIndex = 0;
+        const skillElement = document.getElementById('skill-text');
+
+        setInterval(() => {
+            skillElement.classList.add('skill-fade');
+
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % skills.length;
+                skillElement.textContent = skills[currentIndex];
+                skillElement.classList.remove('skill-fade');
+            }, 400); 
+            
+        }, 1800);
     });
 </script>
 
